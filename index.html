@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            scroll-margin-top: 90px; /* prevents nav from covering anchors */
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .project-card p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .project-card ul {
+            margin-left: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .project-link.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .project-link.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Awards Section */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .award-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .award-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(118, 75, 162, 0.2);
+        }
+
+        .award-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #764ba2;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .resume-section {
+            margin-top: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .resume-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .resume-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .resume-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Modal (PDF Preview) */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            display: none; /* toggled via JS to flex */
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            width: min(900px, 92vw);
+            height: min(85vh, 90vh);
+            background: rgba(20,20,20,0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .modal-title {
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .close-btn {
+            background: transparent;
+            color: #fff;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            display: flex;
+            background: #111;
+        }
+
+        .modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Image placeholder styles */
+        .project-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            border-radius: 15px 15px 0 0;
+            position: relative;
+        }
+
+        .project-image-placeholder::before {
+            content: '🖼️';
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { gap: 1rem; }
+            section { padding: 4rem 1rem; }
+            .contact-links { flex-direction: column; align-items: center; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-actions { justify-content: center; }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div>
+            <h1>Jatin Kumar Sharma</h1>
+            <p>Computer Science Student & Developer</p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>I'm a UNSW Computer Science student in Sydney who loves building reliable backends and developer tooling. Recent work: a Java dungeon game engine, a TypeScript backend for a Kahoot-style quiz platform, and a CLI submission tool that streamlines file collection and marking. I care about clean APIs, performance, and tests that actually catch things. With a marketing minor, I explain complex systems simply. Open to internships where I can ship fast, learn faster, and make real users happy.</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="dungeon-game-screenshot.png" alt="DungeonMania Game Screenshot" class="project-image">
+                <div class="project-content">
+                    <h3>DungeonMania — Java Game Engine</h3>
+                    <ul class="project-points">
+                        <li>Modular Java dungeon-crawler using OOP &amp; SOLID.</li>
+                        <li>Patterns: Strategy, State, Observer; tick-based loop.</li>
+                        <li>Inventory, dynamic goals, logic gates, time travel.</li>
+                        <li>JUnit tests + clean interfaces for easy extension.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/jatinSharma-create/Object-Oriented-Programming" class="project-link" target="_blank" rel="noopener">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <img src="kahoot-game-screenshot.png" alt="Kahoot Game Interface" class="project-image">
+                <div class="project-content">
+                    <h3>Kahoot-Style Game</h3>
+                    <p>TypeScript backend for a Kahoot-style quiz, built in a team of five—owned game/session logic and HTTP handlers, defined JSON contracts with the provided frontend, and shipped reliable timers, scoring, and error handling with clean tests.</p>
+                    <div class="project-actions">
+                        <a href="https://github.com/jatinSharma-create/project-backend" class="project-link" target="_blank" rel="noopener">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <img src="topic-wire-screenshot.png" alt="Topic Wire Chat Interface" class="project-image">
+                <div class="project-content">
+                    <h3>Topic Wire - Python based Chat forum</h3>
+                    <p>Python forum/chat system using TCP for authenticated commands and UDP for file transfers; select-based concurrency, and robust error handling with tests.</p>
+                    <div class="project-actions">
+                        <a href="https://github.com/jatinSharma-create/Chat-forum" class="project-link" target="_blank" rel="noopener">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <img src="cybersecurity-app-screenshot.png" alt="Cybersecurity Chat App" class="project-image">
+                <div class="project-content">
+                    <h3>Cybersecurity Project</h3>
+                    <p>Built a chat app to demonstrate the CIA triad. Messages use XChaCha20-Poly1305 authenticated encryption with per-session keys derived via HKDF; AEAD tags and monotonic sequence numbers ensure integrity and replay defense. Availability is handled with graceful reconnects, backoff, and lightweight server queueing.</p>
+                    <div class="project-actions">
+                        <a href="https://github.com/jatinSharma-create/6441---Project---E2E-Chat" class="project-link" target="_blank" rel="noopener">View on GitHub</a>
+                        <button class="project-link secondary" onclick="previewProjectSpec()">View Project Spec</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <img src="handin-cli-screenshot.png" alt="Handin CLI Terminal" class="project-image">
+                <div class="project-content">
+                    <h3>Handin CLI - POSIX based submit system</h3>
+                    <p>Built a POSIX shell CLI that mirrors a uni "give" system: collects &amp; validates files, enforces naming/size rules. Includes init/add/status/submit/mark, runs tests/linters pre-submit, returns meaningful exit codes, and uses temp dirs + trap cleanup for safe, portable operation.</p>
+                    <div class="project-actions">
+                        <a href="https://github.com/jatinSharma-create/Shell-File-collection-and-marking" class="project-link" target="_blank" rel="noopener">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards">
+        <h2>Awards & Scholarships</h2>
+        <div class="awards-grid">
+            <div class="award-card">
+                <h3>International Student Award (UNSW) — 15% Tuition Scholarship</h3>
+                <p>Recognises academic performance and potential of international students; applied as a 15% reduction to each term's tuition fees. Award is maintained with good academic standing and has supported me in focusing on coursework and building impactful projects alongside study.</p>
+            </div>
+            
+            <div class="award-card">
+                <h3>Australia's Global University Award (UNSW)</h3>
+                <p>Merit scholarship for high-achieving international students; awarded on admission for strong academics and potential.
+One-off $10,000 contribution to first-year tuition, which helped me focus on coursework and build meaningful projects alongside study.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-content">
+            <p>Let's connect and discuss opportunities, projects, or just have a conversation about technology!</p>
+            
+            <div class="contact-links">
+                <a href="https://www.linkedin.com/in/jatin-sharma-0a34512a2/" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/jatinSharma-create" class="contact-link" target="_blank" rel="noopener">GitHub</a>
+                <a href="mailto:jatinvksharma@gmail.com" class="contact-link">Email</a>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Resume</h3>
+                <div class="resume-buttons">
+                    <button class="resume-btn" onclick="previewResume()">Preview Resume</button>
+                    <!-- Direct download of the actual file -->
+                    <a href="Jatin_Kumar_Sharma_Resume.pdf" class="resume-btn" download="Jatin_Kumar_Sharma_Resume.pdf">Download Resume</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Preview Modal -->
+    <div id="resume-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="resumeModalTitle" class="modal-title">Resume Preview</div>
+                <button class="close-btn" aria-label="Close preview" onclick="closeModal('resume-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="resume-iframe" title="Resume PDF"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Spec Preview Modal -->
+    <div id="project-spec-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="projectSpecModalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="projectSpecModalTitle" class="modal-title">Cybersecurity Project Specification</div>
+                <button class="close-btn" aria-label="Close preview" onclick="closeModal('project-spec-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="project-spec-iframe" title="Project Specification PDF"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Resume preview function
+        function previewResume() {
+            const modal = document.getElementById('resume-modal');
+            const iframe = document.getElementById('resume-iframe');
+
+            // Set the PDF source (must exist next to this HTML file)
+            iframe.src = 'Jatin_Kumar_Sharma_Resume.pdf#toolbar=1&navpanes=0&scrollbar=1';
+
+            // Show the modal
+            modal.style.display = 'flex';
+
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Project spec preview function
+        function previewProjectSpec() {
+            const modal = document.getElementById('project-spec-modal');
+            const iframe = document.getElementById('project-spec-iframe');
+
+            // Set the PDF source (must exist next to this HTML file)
+            iframe.src = 'Cybersecurity_Project_Spec.pdf#toolbar=1&navpanes=0&scrollbar=1';
+
+            // Show the modal
+            modal.style.display = 'flex';
+
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Generic close modal function
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            let iframe;
+            
+            if (modalId === 'resume-modal') {
+                iframe = document.getElementById('resume-iframe');
+            } else if (modalId === 'project-spec-modal') {
+                iframe = document.getElementById('project-spec-iframe');
+            }
+
+            // Hide the modal
+            modal.style.display = 'none';
+
+            // Clear the iframe source to stop loading
+            if (iframe) {
+                iframe.src = '';
+            }
+
+            // Restore body scrolling
+            document.body.style.overflow = 'auto';
+        }
+
+        // Legacy function for backward compatibility
+        function closeResumePreview() {
+            closeModal('resume-modal');
+        }
+
+        // Close modal when clicking outside the content
+        document.addEventListener('click', function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    closeModal(modal.id);
+                }
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModal = document.querySelector('.modal[style*="flex"]');
+                if (openModal) {
+                    closeModal(openModal.id);
+                }
+            }
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Make hero section visible immediately
+        document.querySelector('.hero').style.opacity = '1';
+        document.querySelector('.hero').style.transform = 'translateY(0)';
+    </script>
+</body>
+</html>
