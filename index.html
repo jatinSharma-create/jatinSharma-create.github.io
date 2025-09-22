@@ -87,6 +87,31 @@
             max-width: 1200px;
             margin: 0 auto;
             scroll-margin-top: 90px; /* prevents nav from covering anchors */
+            position: relative;
+        }
+
+        /* Section connectors for better flow */
+        section:not(.hero):not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: -3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 6rem;
+            background: linear-gradient(180deg, rgba(102, 126, 234, 0.5) 0%, rgba(118, 75, 162, 0.5) 50%, transparent 100%);
+            z-index: 1;
+        }
+
+        /* Section transition overlays */
+        section:not(.hero) {
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.01) 20%, 
+                rgba(255, 255, 255, 0.01) 80%, 
+                transparent 100%);
+            border-radius: 40px;
+            margin-bottom: 2rem;
         }
 
         h2 {
@@ -97,6 +122,33 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        /* Add decorative elements to section headers */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        /* Section intro paragraphs for better narrative flow */
+        .section-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
 
         /* About Section */
@@ -109,6 +161,80 @@
             text-align: center;
             font-size: 1.2rem;
             line-height: 1.8;
+            position: relative;
+        }
+
+        .about-content::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .about-content:hover::before {
+            opacity: 1;
+        }
+
+        /* Awards Section */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .award-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .award-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(118, 75, 162, 0.3);
+            border: 1px solid rgba(118, 75, 162, 0.3);
+        }
+
+        .award-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #764ba2;
+        }
+
+        /* Add connecting elements between award cards */
+        .awards-grid {
+            position: relative;
+        }
+
+        .awards-grid::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(118, 75, 162, 0.2) 20%, 
+                rgba(118, 75, 162, 0.2) 80%, 
+                transparent 100%);
+            z-index: 0;
+        }
+
+        .award-card {
+            position: relative;
+            z-index: 1;
         }
 
         /* Projects Section */
@@ -131,7 +257,34 @@
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        /* Add subtle connecting lines between project cards */
+        .projects-grid {
+            position: relative;
+        }
+
+        .projects-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(102, 126, 234, 0.1) 20%, 
+                rgba(102, 126, 234, 0.1) 80%, 
+                transparent 100%);
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .project-card {
+            position: relative;
+            z-index: 1;
         }
 
         .project-image {
@@ -202,35 +355,6 @@
         .project-link.secondary:hover {
             background: rgba(255, 255, 255, 0.2);
             box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-        }
-
-        /* Awards Section */
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .award-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2.5rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .award-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(118, 75, 162, 0.2);
-        }
-
-        .award-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: #764ba2;
         }
 
         /* Contact Section */
@@ -389,6 +513,42 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(102, 126, 234, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 30px rgba(102, 126, 234, 0.3); }
+        }
+
+        /* Add subtle floating animation to cards */
+        .award-card, .project-card {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .award-card:nth-child(2n), .project-card:nth-child(2n) {
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Smooth color transitions between sections */
+        #about {
+            background: radial-gradient(circle at 30% 50%, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+        }
+
+        #awards {
+            background: radial-gradient(circle at 70% 50%, rgba(118, 75, 162, 0.05) 0%, transparent 70%);
+        }
+
+        #projects {
+            background: radial-gradient(circle at 30% 50%, rgba(102, 126, 234, 0.03) 0%, transparent 70%);
+        }
+
+        #contact {
+            background: radial-gradient(circle at 50% 50%, rgba(118, 75, 162, 0.08) 0%, transparent 70%);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
@@ -427,8 +587,8 @@
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
             <li><a href="#awards">Awards</a></li>
+            <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -445,14 +605,34 @@
     <!-- About Section -->
     <section id="about">
         <h2>About Me</h2>
+        <p class="section-intro">Passionate about building systems that work reliably and tools that make developers' lives easier.</p>
         <div class="about-content">
             <p>I'm a UNSW Computer Science student in Sydney who loves building reliable backends and developer tooling. Recent work: a Java dungeon game engine, a TypeScript backend for a Kahoot-style quiz platform, and a CLI submission tool that streamlines file collection and marking. I care about clean APIs, performance, and tests that actually catch things. With a marketing minor, I explain complex systems simply. Open to internships where I can ship fast, learn faster, and make real users happy.</p>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards">
+        <h2>Awards & Scholarships</h2>
+        <p class="section-intro">Recognition for academic excellence and potential, supporting my journey in computer science education.</p>
+        <div class="awards-grid">
+            <div class="award-card">
+                <h3>International Student Award (UNSW) — 15% Tuition Scholarship</h3>
+                <p>Recognises academic performance and potential of international students; applied as a 15% reduction to each term's tuition fees. Award is maintained with good academic standing and has supported me in focusing on coursework and building impactful projects alongside study.</p>
+            </div>
+            
+            <div class="award-card">
+                <h3>Australia's Global University Award (UNSW)</h3>
+                <p>Merit scholarship for high-achieving international students; awarded on admission for strong academics and potential.
+One-off $10,000 contribution to first-year tuition, which helped me focus on coursework and build meaningful projects alongside study.</p>
+            </div>
         </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects">
         <h2>Projects</h2>
+        <p class="section-intro">Translating academic achievements into practical solutions through hands-on development and system design.</p>
         <div class="projects-grid">
             <div class="project-card">
                 <img src="dungeon-game-screenshot.png" alt="DungeonMania Game Screenshot" class="project-image">
@@ -517,26 +697,10 @@
         </div>
     </section>
 
-    <!-- Awards Section -->
-    <section id="awards">
-        <h2>Awards & Scholarships</h2>
-        <div class="awards-grid">
-            <div class="award-card">
-                <h3>International Student Award (UNSW) — 15% Tuition Scholarship</h3>
-                <p>Recognises academic performance and potential of international students; applied as a 15% reduction to each term's tuition fees. Award is maintained with good academic standing and has supported me in focusing on coursework and building impactful projects alongside study.</p>
-            </div>
-            
-            <div class="award-card">
-                <h3>Australia's Global University Award (UNSW)</h3>
-                <p>Merit scholarship for high-achieving international students; awarded on admission for strong academics and potential.
-One-off $10,000 contribution to first-year tuition, which helped me focus on coursework and build meaningful projects alongside study.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- Contact Section -->
     <section id="contact">
         <h2>Contact Me</h2>
+        <p class="section-intro">Ready to bring technical expertise and fresh perspectives to your team. Let's build something amazing together!</p>
         <div class="contact-content">
             <p>Let's connect and discuss opportunities, projects, or just have a conversation about technology!</p>
             
@@ -672,17 +836,27 @@ One-off $10,000 contribution to first-year tuition, which helped me focus on cou
             }
         });
 
-        // Intersection Observer for animations
+        // Enhanced intersection observer for better flow animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
+                    // Staggered animation for child elements
+                    const childElements = entry.target.querySelectorAll('.award-card, .project-card, .contact-link');
+                    
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    
+                    // Animate child elements with stagger
+                    childElements.forEach((child, childIndex) => {
+                        setTimeout(() => {
+                            child.classList.add('animate');
+                        }, childIndex * 150);
+                    });
                 }
             });
         }, observerOptions);
@@ -691,13 +865,33 @@ One-off $10,000 contribution to first-year tuition, which helped me focus on cou
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(20px)';
-            section.style.transition = 'all 0.6s ease-out';
+            section.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             observer.observe(section);
+
+            // Add staggered animation class to child elements
+            const childElements = section.querySelectorAll('.award-card, .project-card, .contact-link');
+            childElements.forEach(child => {
+                child.classList.add('staggered-animation');
+            });
         });
 
         // Make hero section visible immediately
         document.querySelector('.hero').style.opacity = '1';
         document.querySelector('.hero').style.transform = 'translateY(0)';
+
+        // Smooth scrolling enhancement for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
